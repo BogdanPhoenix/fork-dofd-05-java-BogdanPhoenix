@@ -4,10 +4,14 @@ on:
   push:
     branches:
       - main
+      - develop
+  pull_request:
+    types: [opened, synchronize]
   workflow_dispatch:
 
 jobs:
-  java_ci:
+  if_merged:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Set up JDK 17
@@ -15,18 +19,20 @@ jobs:
         with:
           java-version: '17'
           distribution: 'zulu'
-
+                
       - name: Checkout code
         uses: actions/checkout@v4
-
+        with:
+          ref: develop
+            
       - name: List files
         run: 'ls -al'
-
+            
       - name: Install Dependencies
         run: 'mvn compile'
-      
+            
       - name: Build application
         run: 'mvn package -DskipTests'
-
+            
       - name: Test application
         run: 'mvn test'
