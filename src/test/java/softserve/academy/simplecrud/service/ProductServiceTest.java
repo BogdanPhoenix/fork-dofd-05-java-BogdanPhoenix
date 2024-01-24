@@ -22,7 +22,7 @@ class ProductServiceTest {
     void testCreateProductCorrect() {
         var expectedMessage = "Product added successfully.";
 
-        var newProduct = new NewProduct("test", new BigDecimal(100));
+        var newProduct = new NewProduct("test", new BigDecimal("10.25"));
         var result = service.create(newProduct);
 
         assertEquals(expectedMessage, result.message());
