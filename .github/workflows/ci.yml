@@ -10,8 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  if_merged:
-    if: github.event.pull_request.merged == true
+  java_ci:
     runs-on: ubuntu-latest
     steps:
       - name: Set up JDK 17
